@@ -1,0 +1,24 @@
+{
+  "name": "thesis",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/ChristosLabrou/thesis#readme",
+  "bugs": {
+    "url": "https://github.com/ChristosLabrou/thesis/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChristosLabrou/thesis.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "start": "node ./src/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "js-ascon": "^1.3.0"
+  }
+}

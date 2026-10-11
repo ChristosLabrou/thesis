@@ -1,3 +1,4 @@
 node_modules/
 data*.*
 benchmark-results.csv
+*.png

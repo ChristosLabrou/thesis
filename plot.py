@@ -39,11 +39,11 @@ def generate_charts(data, group_name, group_title):
         print(f"Skipping {group_title}: no data found.")
         return
 
-    # Compute mean and standard deviation across runs
+    # Compute mean across runs
     stats = (
         data.groupby(["algorithm", "payload_size"])["total_ns"]
-        .agg(["mean", "std"])
-        .reset_index()
+        .mean()
+        .reset_index(name="mean")
     )
 
     # ----------------------------
@@ -60,17 +60,7 @@ def generate_charts(data, group_name, group_title):
             values="mean"
         )
 
-        encrypt_std = encrypt_stats.pivot_table(
-            index="payload_size",
-            columns="algorithm",
-            values="std"
-        )
-
-        ax = encrypt_pivot.plot(
-            kind="bar",
-            yerr=encrypt_std,
-            capsize=4
-        )
+        ax = encrypt_pivot.plot(kind="bar")
 
         ax.set_title(f"{group_title} — Encryption Time by Payload Size")
         ax.set_xlabel("Payload Size (bytes)")
@@ -95,17 +85,7 @@ def generate_charts(data, group_name, group_title):
             values="mean"
         )
 
-        decrypt_std = decrypt_stats.pivot_table(
-            index="payload_size",
-            columns="algorithm",
-            values="std"
-        )
-
-        ax = decrypt_pivot.plot(
-            kind="bar",
-            yerr=decrypt_std,
-            capsize=4
-        )
+        ax = decrypt_pivot.plot(kind="bar")
 
         ax.set_title(f"{group_title} — Decryption Time by Payload Size")
         ax.set_xlabel("Payload Size (bytes)")
@@ -142,8 +122,8 @@ def generate_charts(data, group_name, group_title):
 
     combined_stats = (
         combined.groupby(["algorithm", "payload_size"])["total_ns"]
-        .agg(["mean", "std"])
-        .reset_index()
+        .mean()
+        .reset_index(name="mean")
     )
 
     combined_pivot = combined_stats.pivot_table(
@@ -152,17 +132,7 @@ def generate_charts(data, group_name, group_title):
         values="mean"
     )
 
-    combined_std = combined_stats.pivot_table(
-        index="payload_size",
-        columns="algorithm",
-        values="std"
-    )
-
-    ax = combined_pivot.plot(
-        kind="bar",
-        yerr=combined_std,
-        capsize=4
-    )
+    ax = combined_pivot.plot(kind="bar")
 
     ax.set_title(f"{group_title} — Total Encryption + Decryption Time")
     ax.set_xlabel("Payload Size (bytes)")

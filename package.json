@@ -16,7 +16,8 @@
   "main": "main.js",
   "scripts": {
     "start": "node ./src/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -f images/*"
   },
   "dependencies": {
     "js-ascon": "^1.3.0"
